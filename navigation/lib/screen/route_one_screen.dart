@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:navigation/layout/main_layout.dart';
+import 'package:navigation/screen/route_three_screen.dart';
 import 'package:navigation/screen/route_two_screen.dart';
 
 class RouteOneScreen extends StatelessWidget {
@@ -21,6 +22,12 @@ class RouteOneScreen extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
+            Navigator.of(context).maybePop();
+          },
+          child: Text('Maybe Pop'),
+        ),
+        ElevatedButton(
+          onPressed: () {
             Navigator.of(context).pop(456);
           },
           child: Text('Pop'),
@@ -29,14 +36,32 @@ class RouteOneScreen extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (_) => RouteTwoScreen(),
-                settings: RouteSettings(
-                  arguments: 789,
-                )
-              ),
+                  builder: (_) => RouteTwoScreen(),
+                  settings: RouteSettings(
+                    arguments: 789,
+                  )),
             );
           },
           child: Text('Push'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed(
+              '/three',
+            );
+          },
+          child: Text('Push Replacement'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              '/three',
+              (route) => route.settings.name == '/',
+            );
+          },
+          child: Text(
+            'Push And Remove Until',
+          ),
         ),
       ],
     );
