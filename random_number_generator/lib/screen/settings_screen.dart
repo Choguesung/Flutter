@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:random_number_generator/component/number_row.dart';
 import 'package:random_number_generator/constant/color.dart';
 
@@ -9,12 +10,19 @@ class SettingsScreen extends StatefulWidget {
     required this.maxNumber,
     Key? key,
   }) : super(key: key);
+=======
+import 'package:random_number_generator/constant/color.dart';
+
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({Key? key}) : super(key: key);
+>>>>>>> adf6ead989cd32964f1e9aea5242eaec71749275
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+<<<<<<< HEAD
   double maxNumber = 1000;
 
   @override
@@ -111,5 +119,34 @@ class _Footer extends StatelessWidget {
         ),
       ],
     );
+=======
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: PRIMARY_COLOR,
+        body: Column(
+          children: [
+            Expanded(
+              child: Row(
+                children: 10000
+                    .toString()
+                    .split('')
+                    .map(
+                      (e) => Image.asset(
+                        'asset/img/$e.png',
+                        width: 50.0,
+                        height: 70.0,
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('저장!'),
+            )
+          ],
+        ));
+>>>>>>> adf6ead989cd32964f1e9aea5242eaec71749275
   }
 }

@@ -13,7 +13,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+<<<<<<< HEAD
   int maxNumber = 1000;
+=======
+>>>>>>> adf6ead989cd32964f1e9aea5242eaec71749275
   List<int> randomNumbers = [
     123,
     456,
@@ -32,9 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               _Header(
                 onPressed: onSettingsPop,
               ),
+
+              _Header(),
+
               _Body(
                 randomNumbers: randomNumbers,
               ),
@@ -45,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
 
   void onSettingsPop () async {
     final int? result = await Navigator.of(context).push<int>(
@@ -71,6 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     while (newNumbers.length != 3) {
       final number = rand.nextInt(maxNumber);
+=======
+      final number = rand.nextInt(1000);
+
 
       newNumbers.add(number);
     }
@@ -82,12 +93,16 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _Header extends StatelessWidget {
+
   final VoidCallback onPressed;
 
   const _Header({
     required this.onPressed,
     Key? key,
   }) : super(key: key);
+
+  const _Header({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +115,19 @@ class _Header extends StatelessWidget {
               color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.w700),
         ),
         IconButton(
+
           onPressed: onPressed,
+
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return SettingsScreen();
+                },
+              ),
+            );
+          },
+
           icon: Icon(
             Icons.settings,
             color: RED_COLOR,
@@ -114,10 +141,13 @@ class _Header extends StatelessWidget {
 class _Body extends StatelessWidget {
   final List<int> randomNumbers;
 
+<<<<<<< HEAD
   const _Body({
     required this.randomNumbers,
     Key? key,
   }) : super(key: key);
+
+  const _Body({required this.randomNumbers, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -130,8 +160,21 @@ class _Body extends StatelessWidget {
               .map(
                 (x) => Padding(
                   padding: EdgeInsets.only(bottom: x.key == 2 ? 0 : 16.0),
+
                   child: NumberRow(
                     number: x.value,
+
+                  child: Row(
+                    children: x.value
+                        .toString()
+                        .split('')
+                        .map((y) => Image.asset(
+                              'asset/img/$y.png',
+                              height: 70.0,
+                              width: 50.0,
+                            ))
+                        .toList(),
+
                   ),
                 ),
               )
