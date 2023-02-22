@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,8 +13,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   static final LatLng companyLatLng = LatLng(
-    37.5233273,
-    126.921252,
+    37.5236,
+    126.9237,
   );
 
   static final CameraPosition initialPosition = CameraPosition(
@@ -20,13 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
     zoom: 15,
   );
 
-  static final double distance = 100;
+  static final double okdistance = 100;
 
-  static final Circle circle = Circle(
+  static final Circle withinDistanceCircle = Circle(
     circleId: CircleId('circle'),
     center: companyLatLng,
     fillColor: Colors.blue.withOpacity(0.5),
-    radius: distance,
+    radius: okdistance,
     strokeColor: Colors.blue,
     strokeWidth: 1,
   );
@@ -50,16 +52,38 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           if (snapshot.data == '위치 권한이 허가되었습니다') {
-            return Column(
-              children: [
-                _CustomGoogleMap(
-                  initialPosition: initialPosition,
-                  circle: circle,
-                  marker: marker,
-                ),
-                _ChoolCheckButton(),
-              ],
-            );
+            return StreamBuilder<Position>(
+                stream: Geolocator.getPositionStream(),
+                builder: (context, snapshot) {
+                  bool isWithinRange = false;
+
+                  if (snapshot.hasData) {
+                    final start = snapshot.data!;
+                    final end = companyLatLng;
+
+                    final distance = Geolocator.distanceBetween(
+                      start.latitude,
+                      start.longitude,
+                      end.latitude,
+                      end.longitude,
+                    );
+
+                    if(distance < okdistance){
+                      isWithinRange = true;
+                    }
+                  }
+
+                  return Column(
+                    children: [
+                      _CustomGoogleMap(
+                        initialPosition: initialPosition,
+                        circle: withinDistanceCircle,
+                        marker: marker,
+                      ),
+                      _ChoolCheckButton(),
+                    ],
+                  );
+                });
           }
 
           return Center(
