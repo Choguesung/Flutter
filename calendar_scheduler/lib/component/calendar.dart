@@ -2,16 +2,20 @@ import 'package:calendar_scheduler/const/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class Calendar extends StatefulWidget {
-  const Calendar({Key? key}) : super(key: key);
 
-  @override
-  State<Calendar> createState() => _CalendarState();
-}
 //헬로
-class _CalendarState extends State<Calendar> {
-  DateTime? selectedDay;
+class Calendar extends StatelessWidget {
 
+  final DateTime? selectedDay;
+  final DateTime focusedDay;
+  final OnDaySelected? onDaySelected;
+
+  const Calendar({
+    required this.selectedDay,
+    required this.focusedDay,
+    required this.onDaySelected,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,8 @@ class _CalendarState extends State<Calendar> {
     );
 
     return TableCalendar(
-      focusedDay: DateTime.now(),
+      locale: 'ko_KR',
+      focusedDay: focusedDay,
       firstDay: DateTime(1800),
       lastDay: DateTime(3000),
       headerStyle: HeaderStyle(
@@ -37,7 +42,6 @@ class _CalendarState extends State<Calendar> {
           fontSize: 16.0,
         ),
       ),
-
       calendarStyle: CalendarStyle(
         isTodayHighlighted: false,
         defaultDecoration: defaultBoxDeco,
@@ -50,26 +54,22 @@ class _CalendarState extends State<Calendar> {
             width: 1.0,
           ),
         ),
+        outsideDecoration: BoxDecoration(shape: BoxShape.rectangle),
         defaultTextStyle: defaultTextStyle,
         weekendTextStyle: defaultTextStyle,
         selectedTextStyle: defaultTextStyle.copyWith(
           color: PRIMARY_COLOR,
         ),
       ),
-
-      onDaySelected: (DateTime selectedDay,DateTime focusedDay) {
-        setState(() {
-          this.selectedDay = selectedDay;
-        });
-      },
-      selectedDayPredicate: (DateTime date){
-        if(selectedDay == null){
+      onDaySelected: onDaySelected,
+      selectedDayPredicate: (DateTime date) {
+        if (selectedDay == null) {
           return false;
         }
 
         return date.year == selectedDay!.year &&
-        date.month == selectedDay!.month &&
-        date.day == selectedDay!.day;
+            date.month == selectedDay!.month &&
+            date.day == selectedDay!.day;
       },
     );
   }
