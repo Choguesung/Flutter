@@ -19,7 +19,7 @@ class GroupCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => GroupDetail()),
+            MaterialPageRoute(builder: (context) => HomeScreen()),
           );
         },
         child: Container(
