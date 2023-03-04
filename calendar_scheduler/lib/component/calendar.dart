@@ -69,7 +69,7 @@ class Calendar extends StatelessWidget {
 
         return date.year == selectedDay!.year &&
             date.month == selectedDay!.month &&
-            date.day == selectedDay!.day;
+            date.day ==   selectedDay!.day;
       },
     );
   }
