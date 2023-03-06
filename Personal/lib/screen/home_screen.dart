@@ -4,8 +4,9 @@ import 'package:personal/screen/event_page1.dart';
 import 'package:personal/screen/group.dart';
 import 'package:personal/screen/myinfo.dart';
 import 'package:personal/screen/search.dart';
+import 'package:personal/view/grouptap_view.dart';
 
-import '../component/shortcut_icon.dart';
+import '../icon/shortcut_icon.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -79,7 +80,7 @@ class _HomeScreenDetail extends StatelessWidget {
           _Schedule(),
           SizedBox(height: 8.0),
           _ShortCut(),
-          _TapBarTest(),
+          _GroupTapBar(),
         ],
       ),
     );
@@ -138,6 +139,7 @@ class _ShortCut extends StatelessWidget {
         },
         itemBuilder: (context, index) {
           return ShortCutIcon(
+            id: index,
             img: 'assets/img/core2.png',
             text: '총동연 공지',
           );
@@ -147,8 +149,8 @@ class _ShortCut extends StatelessWidget {
   }
 }
 
-class _TapBarTest extends StatelessWidget {
-  const _TapBarTest({Key? key}) : super(key: key);
+class _GroupTapBar extends StatelessWidget {
+  const _GroupTapBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -164,20 +166,20 @@ class _TapBarTest extends StatelessWidget {
                   icon: Icon(
                     Icons.category,
                   ),
-                  text: 'categories',
+                  text: '직무 동아리',
                 ),
                 Tab(
                   icon: Icon(
                     Icons.star,
                   ),
-                  text: 'favorites',
+                  text: '중앙 동아리',
                 ),
               ],
             ),
           ),
           body: TabBarView(
             children: <Widget>[
-              EventPage1(),
+              GroupTapView(),
               EventPage1(),
             ],
           ),

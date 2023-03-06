@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:personal/screen/event_page1.dart';
 
 class ShortCutIcon extends StatelessWidget {
+  final int id;
   final String img;
   final String text;
 
   const ShortCutIcon({
+    required this.id,
     required this.img,
     required this.text,
     Key? key,
