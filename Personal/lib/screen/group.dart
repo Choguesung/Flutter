@@ -31,6 +31,7 @@ class _GroupList extends StatelessWidget {
           },
           itemBuilder: (context, index) {
             return GroupCard(
+              group_id: index.toInt(),
               img: 'assets/img/core.png',
               name: '코어',
             );

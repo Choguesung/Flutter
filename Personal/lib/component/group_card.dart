@@ -3,10 +3,12 @@ import 'package:personal/component/group_detail.dart';
 import 'package:personal/screen/home_screen.dart';
 
 class GroupCard extends StatelessWidget {
+  final int group_id;
   final String img;
   final String name;
 
   const GroupCard({
+    required this.group_id,
     required this.img,
     required this.name,
     Key? key,
@@ -19,7 +21,7 @@ class GroupCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) => GroupDetail(group_id: 1,)),
           );
         },
         child: Container(

@@ -179,8 +179,8 @@ class _GroupTapBar extends StatelessWidget {
           ),
           body: TabBarView(
             children: <Widget>[
-              GroupTapView(),
-              EventPage1(),
+              GroupTapView(type: true),
+              GroupTapView(type: false),
             ],
           ),
         ),

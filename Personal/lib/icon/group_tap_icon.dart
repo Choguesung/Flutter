@@ -21,7 +21,11 @@ class GrouptapIcon extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => GroupDetail()),
+          MaterialPageRoute(
+            builder: (context) => GroupDetail(
+              group_id: id,
+            ),
+          ),
         );
       },
       child: Container(

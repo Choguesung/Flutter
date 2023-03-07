@@ -5,7 +5,12 @@ import 'package:personal/group_detail_tap/group_manage.dart';
 import 'package:personal/group_detail_tap/group_notice.dart';
 
 class GroupDetail extends StatelessWidget {
-  const GroupDetail({Key? key}) : super(key: key);
+  final int group_id;
+
+  const GroupDetail({
+    required this.group_id,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
