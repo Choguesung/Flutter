@@ -33,6 +33,7 @@ class LocalDatabase extends _$LocalDatabase {
   int get schemaVersion => 1;
 }
 
+// 데이터 베이스 생성
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();

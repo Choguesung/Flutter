@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:personal/database/mysql.dart';
 import 'package:personal/screen/advertise.dart';
-import 'package:personal/screen/event_page1.dart';
 import 'package:personal/screen/group.dart';
 import 'package:personal/screen/myinfo.dart';
 import 'package:personal/screen/search.dart';
 import 'package:personal/view/grouptap_view.dart';
-
 import '../icon/shortcut_icon.dart';
 
 class HomeScreen extends StatelessWidget {
