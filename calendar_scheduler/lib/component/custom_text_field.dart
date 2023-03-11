@@ -7,10 +7,12 @@ class CustomTextField extends StatelessWidget {
 
   // true : 시간 , false : 내용
   final bool isTime;
+  final FormFieldSetter<String> onSaved;
 
   const CustomTextField({
     required this.label,
     required this.isTime,
+    required this.onSaved,
     Key? key,
   }) : super(key: key);
 
@@ -37,6 +39,7 @@ class CustomTextField extends StatelessWidget {
 
   Widget renderTextField(){
     return TextFormField(
+      onSaved: onSaved,
       // null이 return 되면 에러가 없다
       // 에러가 있으면 에러를 String 값으로 리턴 해준다
       validator: (String? val){

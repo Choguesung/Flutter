@@ -12,6 +12,10 @@ class ScheduleBottomSheet extends StatefulWidget {
 class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
   final GlobalKey<FormState> formkey = GlobalKey();
 
+  int? startTime;
+  int? endTime;
+  String? content;
+
   @override
   Widget build(BuildContext context) {
     final bottomInset = MediaQuery.of(context).viewInsets.bottom;
@@ -38,9 +42,20 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _Time(),
+                    _Time(
+                      onStartSaved: (String? val){
+                        startTime = int.parse(val!);
+                      },
+                      onEndSaved:(String? val){
+                        endTime = int.parse(val!);
+                      } ,
+                    ),
                     SizedBox(height: 16.0),
-                    _Content(),
+                    _Content(
+                      onSaved: (String? val){
+                        content = val;
+                      },
+                    ),
                     SizedBox(height: 16.0),
                     _ColorPicker(),
                     SizedBox(height: 8.0),
@@ -64,8 +79,16 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
       return;
     }
 
+    // 에러가 없을때 실행
     if (formkey.currentState!.validate()) {
       print('에러가 없습니다');
+      formkey.currentState!.save();
+
+      print('-----------');
+      print('startTime : $startTime');
+      print('endTime : $endTime');
+      print('content : $content');
+
     } else {
       print('에러가 있습니다');
     }
@@ -73,7 +96,14 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
 }
 
 class _Time extends StatelessWidget {
-  const _Time({Key? key}) : super(key: key);
+  final FormFieldSetter<String> onStartSaved;
+  final FormFieldSetter<String> onEndSaved;
+
+  const _Time({
+    required this.onStartSaved,
+    required this.onEndSaved,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +113,7 @@ class _Time extends StatelessWidget {
           child: CustomTextField(
             label: '시작시간',
             isTime: true,
+            onSaved: onStartSaved,
           ),
         ),
         SizedBox(
@@ -92,6 +123,7 @@ class _Time extends StatelessWidget {
           child: CustomTextField(
             label: '마감시간',
             isTime: true,
+            onSaved: onEndSaved,
           ),
         ),
       ],
@@ -100,7 +132,12 @@ class _Time extends StatelessWidget {
 }
 
 class _Content extends StatelessWidget {
-  const _Content({Key? key}) : super(key: key);
+  final FormFieldSetter<String> onSaved;
+
+  const _Content({
+    required this.onSaved,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -108,12 +145,16 @@ class _Content extends StatelessWidget {
       child: CustomTextField(
         label: '내용',
         isTime: false,
+        onSaved: onSaved,
       ),
     );
   }
 }
 
 class _ColorPicker extends StatelessWidget {
+
+  
+
   const _ColorPicker({Key? key}) : super(key: key);
 
   @override

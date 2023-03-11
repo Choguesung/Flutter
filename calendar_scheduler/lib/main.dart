@@ -32,6 +32,7 @@ void main() async{
     for(String hexCode in DEFAULT_COLORS){
       await database.createCategoryColor(
         CategoryColorsCompanion(
+          //id는 자동 증가
           hexCode: Value(hexCode),
         ),
       );
