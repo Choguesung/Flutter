@@ -121,7 +121,7 @@ class _Time extends StatelessWidget {
         ),
         Expanded(
           child: CustomTextField(
-            label: '마감시간',
+            label: '마감시간1',
             isTime: true,
             onSaved: onEndSaved,
           ),
@@ -153,7 +153,7 @@ class _Content extends StatelessWidget {
 
 class _ColorPicker extends StatelessWidget {
 
-  
+
 
   const _ColorPicker({Key? key}) : super(key: key);
 
