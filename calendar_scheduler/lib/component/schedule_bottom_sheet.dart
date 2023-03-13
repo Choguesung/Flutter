@@ -121,7 +121,7 @@ class _Time extends StatelessWidget {
         ),
         Expanded(
           child: CustomTextField(
-            label: '마감시간1',
+            label: '마감시간11',
             isTime: true,
             onSaved: onEndSaved,
           ),
