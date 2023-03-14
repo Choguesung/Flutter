@@ -2,7 +2,9 @@ import 'package:calendar_scheduler/component/schedule_bottom_sheet.dart';
 import 'package:calendar_scheduler/component/schedule_card.dart';
 import 'package:calendar_scheduler/component/today_banner.dart';
 import 'package:calendar_scheduler/const/colors.dart';
+import 'package:calendar_scheduler/database/drift_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import '../component/calendar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -56,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
           context: context,
           isScrollControlled: true,
           builder: (_){
-            return ScheduleBottomSheet();
+            return ScheduleBottomSheet(
+              selectedDate: selectedDay,
+            );
           }
         );
       },
@@ -85,19 +89,26 @@ class _ScheduleList extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           horizontal: 8.0,
         ),
-        child: ListView.separated(
-          itemCount: 11,
-          separatorBuilder: (context, index) {
-            return SizedBox(height: 8.0);
-          },
-          itemBuilder: (context, index) {
-            return ScheduleCard(
-              startTime: 8,
-              endTime: 9,
-              content: '프로그래밍 공부하기',
-              color: Colors.red,
+        child: StreamBuilder<List<Schedule>>(
+          stream: GetIt.I<LocalDatabase>().watchSchedules(),
+          builder: (context, snapshot) {
+            print(snapshot.data);
+
+            return ListView.separated(
+              itemCount: 11,
+              separatorBuilder: (context, index) {
+                return SizedBox(height: 8.0);
+              },
+              itemBuilder: (context, index) {
+                return ScheduleCard(
+                  startTime: 8,
+                  endTime: 9,
+                  content: '프로그래밍 공부하기',
+                  color: Colors.red,
+                );
+              },
             );
-          },
+          }
         ),
       ),
     );
