@@ -43,7 +43,7 @@ void main() async{
   }
 
   print(
-    await database.getCategoryColors()
+    await database.getCategoryColors(),
   );
 
   runApp(

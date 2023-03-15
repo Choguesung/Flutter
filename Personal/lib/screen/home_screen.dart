@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:personal/screen/advertise.dart';
-import 'package:personal/screen/group.dart';
-import 'package:personal/screen/myinfo.dart';
-import 'package:personal/screen/search.dart';
+import 'package:personal/screen/advertise_screen.dart';
+import 'package:personal/screen/group_screen.dart';
+import 'package:personal/screen/myinfo_screen.dart';
+import 'package:personal/screen/search_screen.dart';
 import 'package:personal/view/grouptap_view.dart';
 import '../icon/shortcut_icon.dart';
 
@@ -32,10 +32,10 @@ class _NavigationBar extends StatelessWidget {
             body: const TabBarView(
               children: [
                 _HomeScreenDetail(),
-                advertise(),
-                group(),
-                search(),
-                MyInformation(),
+                AdvertiseScreen(),
+                GroupScreen(),
+                SearchScreen(),
+                MyInformationScreen(),
               ],
             ),
             bottomNavigationBar: TabBar(tabs: [
@@ -130,16 +130,19 @@ class _ShortCut extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(
       child: ListView.separated(
-        itemCount: 11,
+        itemCount: 20,
         scrollDirection: Axis.horizontal,
         separatorBuilder: (context, index) {
           return SizedBox(height: 8.0);
         },
         itemBuilder: (context, index) {
-          return ShortCutIcon(
-            id: index,
-            img: 'assets/img/core2.png',
-            text: '총동연 공지',
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: ShortCutIcon(
+              id: index,
+              img: 'assets/img/core2.png',
+              text: '총동연',
+            ),
           );
         },
       ),

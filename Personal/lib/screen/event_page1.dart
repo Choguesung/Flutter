@@ -5,9 +5,9 @@ class EventPage1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Text('hello'),
+    return Scaffold(
+      body: Center(
+        child: Text('이벤트페이지'),
       ),
     );
   }
