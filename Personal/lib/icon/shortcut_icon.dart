@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:personal/screen/event_page1.dart';
 
@@ -18,6 +16,7 @@ class ShortCutIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      // 누를시 다른 페이지로 이동
       onTap: (){
         Navigator.push(
           context,

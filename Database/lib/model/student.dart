@@ -8,5 +8,5 @@ class Students extends Table{
 
 class LocalDatabase extends _$LocalDatabase {
   LocalDatabase() : super(_openConnection());
-  
+
 }
