@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import '../screen/test_screen.dart';
 
 class DefaultLayout extends StatelessWidget {
-  final Widget child;
 
   const DefaultLayout({
-    required this.child,
     super.key,
   });
 

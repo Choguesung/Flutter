@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:personal/screen/advertise_screen.dart';
 import 'package:personal/screen/group_screen.dart';
@@ -77,7 +78,7 @@ class _HomeScreenDetail extends StatelessWidget {
           SizedBox(height: 8.0),
           _Schedule(),
           SizedBox(height: 8.0),
-          _ShortCut(),
+          _ShortCut2(),
           _GroupTapBar(),
         ],
       ),
@@ -132,6 +133,7 @@ class _ShortCut extends StatelessWidget {
       child: ListView.separated(
         itemCount: 20,
         scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.all(8),
         separatorBuilder: (context, index) {
           return SizedBox(height: 8.0);
         },
@@ -149,6 +151,38 @@ class _ShortCut extends StatelessWidget {
     );
   }
 }
+
+class _ShortCut2 extends StatelessWidget {
+  const _ShortCut2({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: FutureBuilder<List>(
+        future: fetchUsers(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data!.length.toInt(),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                return ShortCutIcon(
+                  id: index,
+                  img: 'assets/img/core2.png',
+                  text: snapshot.data![index]['title'],
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return CircularProgressIndicator();
+        },
+      ),
+    );
+  }
+}
+
 
 class _GroupTapBar extends StatelessWidget {
   const _GroupTapBar({Key? key}) : super(key: key);
@@ -188,4 +222,12 @@ class _GroupTapBar extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<List> fetchUsers() async {
+  var dio = Dio();
+  final response =
+  await dio.get('http://13.209.14.107/api/post');
+
+  return response.data;
 }

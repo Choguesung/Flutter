@@ -6,10 +6,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultLayout(
-      child: Center(
-        child: Text('하이'),
-      ),
-    );
+    return DefaultLayout();
   }
 }
+
+
+
