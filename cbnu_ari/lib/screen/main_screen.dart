@@ -1,8 +1,10 @@
+import 'package:cbnu_ari/const/colors.dart';
 import 'package:cbnu_ari/screen/test_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../Icon/shortcut_icon.dart';
+import '../view/group_tap_view.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -10,19 +12,19 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _SearchBar(),
-            _Schedules(),
-            _ShortCut(),
-          ],
-        ),
+      body: Column(
+        children: [
+          _SearchBar(),
+          _Schedules(),
+          _ShortCut(),
+          _GroupTapBar(),
+        ],
       ),
     );
   }
 }
 
+//추가로 구현
 class _SearchBar extends StatelessWidget {
   const _SearchBar({Key? key}) : super(key: key);
 
@@ -30,7 +32,7 @@ class _SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
+      child: Flexible(
         child: Row(
           children: [
             Expanded(
@@ -47,6 +49,7 @@ class _SearchBar extends StatelessWidget {
   }
 }
 
+// 스케줄 탭 추가 구현
 class _Schedules extends StatelessWidget {
   const _Schedules({Key? key}) : super(key: key);
 
@@ -55,18 +58,20 @@ class _Schedules extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('나의 일정1'),
+        Text('나의 일정'),
       ],
     );
   }
 }
 
+// 바로가기
 class _ShortCut extends StatelessWidget {
   const _ShortCut({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
+      flex: 1,
       child: FutureBuilder<List>(
         future: fetchDatas(),
         builder: (context, snapshot) {
@@ -76,7 +81,7 @@ class _ShortCut extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
                 return ShortCutIcon(
-                  img: 'assets/img/core2.png',
+                  img: 'assets/img/core.png',
                   text: snapshot.data![index]['title'],
                 );
               },
@@ -91,6 +96,7 @@ class _ShortCut extends StatelessWidget {
   }
 }
 
+// 서버에 요청
 Future<List> fetchDatas() async {
   var dio = Dio();
   final response =
@@ -99,3 +105,43 @@ Future<List> fetchDatas() async {
   return response.data;
 }
 
+class _GroupTapBar extends StatelessWidget {
+  const _GroupTapBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: PRIMARY_COLOR,
+            toolbarHeight: 0,
+            bottom: TabBar(
+              tabs: <Widget>[
+                Tab(
+                  icon: Icon(
+                    Icons.category,
+                  ),
+                  text: '직무 동아리',
+                ),
+                Tab(
+                  icon: Icon(
+                    Icons.star,
+                  ),
+                  text: '중앙 동아리',
+                ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: <Widget>[
+              GroupTapView(isJob: true),
+              GroupTapView(isJob: false),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

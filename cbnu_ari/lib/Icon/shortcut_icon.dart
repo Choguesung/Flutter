@@ -23,19 +23,22 @@ class ShortCutIcon extends StatelessWidget {
           MaterialPageRoute(builder: (context) => TestScreen()),
         );
       },
-      child: Container(
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(300.0),
-              child: Image.asset(
-                img,
-                fit: BoxFit.cover,
+      child: Padding(
+        padding: EdgeInsets.only(left: 2.0,right: 2.0),
+        child: Container(
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(300.0),
+                child: Image.asset(
+                  img,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            SizedBox(height: 4.0,),
-            Text(text),
-          ],
+              SizedBox(height: 4.0,),
+              Text(text),
+            ],
+          ),
         ),
       ),
     );

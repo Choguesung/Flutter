@@ -1,3 +1,5 @@
+import 'package:cbnu_ari/screen/advertise_screen.dart';
+import 'package:cbnu_ari/screen/group_screen.dart';
 import 'package:cbnu_ari/screen/main_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,8 +26,8 @@ class DefaultLayout extends StatelessWidget {
             body: const TabBarView(
               children: [
                 MainScreen(),
-                TestScreen(),
-                TestScreen(),
+                AdvertisementScreen(),
+                GroupScreen(),
                 TestScreen(),
                 TestScreen(),
               ],

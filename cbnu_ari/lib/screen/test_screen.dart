@@ -7,7 +7,7 @@ class TestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('테스트 페이지'),
+        child: Text('테스트 페이지11'),
       ),
     );
   }
