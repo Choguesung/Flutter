@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../component/image_slide.dart';
+import '../response/response.dart';
 
 // 동아리 정보 페이지
 class GroupDetail extends StatelessWidget {
@@ -130,7 +131,7 @@ class _GroupInfoDetail extends StatelessWidget {
         children: [
           // 이미지 슬라이더 나중에 사용 할 코드
           //AutoSlider(imageUrls: ['assets/img/core.png'],),
-          _GroupImage(img: 'assets/img/core.png',),
+          //_GroupImage(img: 'assets/img/core.png',),
           Text(title),
           Text(content),
         ],
@@ -150,19 +151,15 @@ class _GroupImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Image.asset(
-        img,
+      body: Column(
+        children: [
+          Image.asset(
+            img,
+          ),
+        ],
       ),
     );
   }
-}
-
-// 서버에 데이터 요청
-Future<List> fetchDatas() async {
-  var dio = Dio();
-  final response = await dio.get('http://13.209.14.107/api/post');
-
-  return response.data;
 }
 
 // 게시판 구현 공간
