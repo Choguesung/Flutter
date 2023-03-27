@@ -113,7 +113,7 @@ class _GroupInfo extends StatelessWidget {
   }
 }
 
-// 여기에 동아리 정보 그리면 됨
+// 여기에 동아리 정보 그리면 됩니다
 class _GroupInfoDetail extends StatelessWidget {
   final String title;
   final String content;
