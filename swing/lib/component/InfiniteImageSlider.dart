@@ -62,7 +62,7 @@ class _InfiniteImageSliderState extends State<InfiniteImageSlider> {
             fit: BoxFit.cover,
             width: 1000,
           ),
-        );// 11
+        );
       },
     );
   }
