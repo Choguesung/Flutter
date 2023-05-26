@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// 푸쉬 확인용
 
 class BottomNavigation extends StatefulWidget {
   @override
