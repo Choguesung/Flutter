@@ -14,24 +14,25 @@ class PlayerInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16.0),
-            border: Border.all(
-              color: Colors.red,
-              width: 2,
-            ),
+    return Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.0),
+          border: Border.all(
+            color: Colors.red,
+            width: 2,
           ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Text('$player_id'),
+              Text('$player_name'),
+              Text('$player_name'),
+              Text('$player_name'),
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
