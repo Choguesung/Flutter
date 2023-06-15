@@ -33,6 +33,11 @@ dependencies:
   image_picker: ^0.8.4+4
   path_provider: ^2.0.2
   flutter_image_compress: ^1.1.0
+  exif: ^3.1.4
+  collection: ^1.15.0
+  opencv_4: ^1.0.0
+  opencv_flutter_plugin: ^0.0.1
+  image: ^4.0.17
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -60,6 +65,14 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - asset/img/misc/
+    - asset/img/food/
+    - asset/img/logo/
+    - asset/svg/icon/
+    - asset/rive/
+    - asset/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

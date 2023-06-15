@@ -1,9 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter/services.dart';
+import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,32 +27,43 @@ class ObjectDimensionsPage extends StatefulWidget {
 }
 
 class _ObjectDimensionsPageState extends State<ObjectDimensionsPage> {
-  File? _imageFile;
+  String _imagePath = 'asset/img/food/box3.jpeg';
   double? _width;
   double? _height;
+  double? _depth;
 
-  Future<void> _getImageAndProcess() async {
-    final imagePicker = ImagePicker();
-    final imageFile = await imagePicker.pickImage(source: ImageSource.camera);
+  @override
+  void initState() {
+    super.initState();
+    _getImageSize();
+  }
 
-    if (imageFile == null) return;
+  Future<void> _getImageSize() async {
+    final ByteData byteData = await rootBundle.load(_imagePath);
+    final File file = File('${(await getTemporaryDirectory()).path}/box3.jpeg');
+    await file.writeAsBytes(byteData.buffer.asUint8List());
 
-    final tempDir = await getTemporaryDirectory();
-    final imagePath = '${tempDir.path}/temp.jpg';
+    final image = img.decodeImage(file.readAsBytesSync());
+    final grayImage = img.grayscale(image!);
+    final blurredImage = img.gaussianBlur(grayImage, 5);
+    final cannyEdges = img.copyCrop(img.gaussianBlur(blurredImage, 5), 0, 0, image.width, image.height);
+    final contours = img.findContours(cannyEdges);
 
-    await FlutterImageCompress.compressAndGetFile(
-      imageFile.path,
-      imagePath,
-      quality: 90,
-    );
+    double maxArea = 0;
+    img.BoundingRect? maxBoundingBox;
 
-    final file = File(imagePath);
-    final decodedImage = await decodeImageFromList(file.readAsBytesSync());
+    for (var contour in contours) {
+      final area = contour.length;
+      if (area > maxArea) {
+        maxArea = area;
+        maxBoundingBox = img.findBoundingRect(contour);
+      }
+    }
 
     setState(() {
-      _imageFile = file;
-      _width = decodedImage.width.toDouble();
-      _height = decodedImage.height.toDouble();
+      _width = maxBoundingBox?.width.toDouble() / 10; // cm로 변환
+      _height = maxBoundingBox?.height.toDouble() / 10; // cm로 변환
+      _depth = maxArea / 10; // cm로 변환
     });
   }
 
@@ -67,21 +77,15 @@ class _ObjectDimensionsPageState extends State<ObjectDimensionsPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (_imageFile != null) ...[
-              Image.file(_imageFile!),
-              SizedBox(height: 16),
-            ],
-            if (_width != null && _height != null) ...[
-              Text('Width: $_width'),
-              SizedBox(height: 8),
-              Text('Height: $_height'),
-            ],
+            Image.asset(_imagePath),
+            SizedBox(height: 16),
+            Text('Width: ${_width?.toStringAsFixed(2) ?? "N/A"} cm'),
+            SizedBox(height: 8),
+            Text('Height: ${_height?.toStringAsFixed(2) ?? "N/A"} cm'),
+            SizedBox(height: 8),
+            Text('Depth: ${_depth?.toStringAsFixed(2) ?? "N/A"} cm'),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _getImageAndProcess,
-        child: Icon(Icons.camera_alt),
       ),
     );
   }
