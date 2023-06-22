@@ -16,25 +16,41 @@ class PlayerInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16.0),
-          border: Border.all(
-            color: Color(),
-            width: 2,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16.0),
+            border: Border.all(
+              color: Colors.black,
+              width: 2,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          width: double.infinity,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('$player_name'),
-              Text('$player_name'),
-              Text('$player_name'),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Image(
+                      image: AssetImage('assets/img/hanhwa.png'), // 이미지 경로 설정
+                      width: 80, // 이미지의 가로 크기 지정
+                      height: 80, // 이미지의 세로 크기 지정
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Text('채은성'),
+                ],
+              ),
             ],
           ),
         ),
-      );
+    );
   }
 }

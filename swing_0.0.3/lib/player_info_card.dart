@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swing/colors.dart';
 
 class PlayerInfoCard extends StatelessWidget {
   final String player_img;
@@ -14,25 +15,26 @@ class PlayerInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16.0),
           border: Border.all(
-            color: Colors.red,
+            color: PRIMARY_COLOR,
             width: 2,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Text('$player_name'),
-              Text('$player_name'),
-              Text('$player_name'),
-            ],
-          ),
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text('hellop'),
+            Text('hellop'),
+          ],
         ),
-      );
+      ),
+    );
   }
 }

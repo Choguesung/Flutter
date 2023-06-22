@@ -11,8 +11,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            mypage(),
+            PlayerInfoCard(player_name: '1',player_img: '1',player_id: '1',team_color: 'Colors.blue',),
             PlayerInfoCard(player_name: '1',player_img: '1',player_id: '1',team_color: 'Colors.blue',),
           ],
         ),
